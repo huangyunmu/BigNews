@@ -13,5 +13,5 @@ Check the API test for the details
 
 Other Notes:
 1 Chinese coding
-Add below code in your py code if you are going to use Chinese code
-# -*- coding: utf-8 -*-
+Add utf-8 encoding header code in your py code if you are going to use Chinese code
+
