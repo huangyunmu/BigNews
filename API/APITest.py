@@ -3,6 +3,8 @@
 
 @author: andyh
 '''
+import sys
+sys.path.append("..")
 from API import APISet
 from Util import DataLoader
 if __name__ == '__main__':

@@ -2,6 +2,8 @@
 
 @author: andyh
 '''
+import sys
+sys.path.append("..")
 import traceback
 import json
 from QcloudApi.qcloudapi import QcloudApi
