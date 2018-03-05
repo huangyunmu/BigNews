@@ -50,10 +50,95 @@ class TextKeywords(object):
             print(result)
         except Exception as e:
             print('traceback.format_exc():\n%s' % traceback.format_exc())
-        if(result==None):
+        if(result == None):
             return
         data = json.loads(result.decode('utf-8'))
-        if(result!=None and data["code"] != 0):
+        if(result != None and data["code"] != 0):
             return None
         else:
             return data['keywords']
+class ContentGrab(object):
+    def __init__(self):
+        '''
+        Constructor
+        '''
+        
+    @staticmethod
+    def getContent(url):
+        '''
+    parameter:
+        url:The target url
+    return:
+        data:The result in json format.Fields contained:keyword,score,type
+        use data['keyword'] to access
+    '''
+        module = 'wenzhi'
+        action = 'ContentGrab'
+        region = "sz"
+        path = DataLoader.getDataPath("keys/keys2.txt")
+        with open(path) as f:
+            secretId = f.readline().strip('\n')
+            secretKey = f.readline().strip('\n')
+        config = {
+            'Region': region,
+            'secretId': secretId,
+            'secretKey': secretKey}
+        action_params = {
+            'url':url
+        }
+        try:
+            service = QcloudApi(module, config)
+            print(service.generateUrl(action, action_params))
+            result = service.call(action, action_params)
+            print(result)
+        except Exception as e:
+            print('traceback.format_exc():\n%s' % traceback.format_exc())
+        if(result == None):
+            return
+        data = json.loads(result.decode('utf-8'))
+        if(result != None and data["code"] != 0):
+            return None
+        else:
+            return data
+class ContentTranscode(object):
+    def __init__(self):
+        '''
+        Constructor
+        '''
+        
+    @staticmethod
+    def getContentTranscode(url):
+        '''
+    parameter:
+        url:The target url
+    return:
+        data
+    '''
+        module = 'wenzhi'
+        action = 'ContentTranscode'
+        region = "sz"
+        path = DataLoader.getDataPath("keys/keys.txt")
+        with open(path) as f:
+            secretId = f.readline().strip('\n')
+            secretKey = f.readline().strip('\n')
+        config = {
+            'Region': region,
+            'secretId': secretId,
+            'secretKey': secretKey}
+        action_params = {
+            'url':url
+        }
+        try:
+            service = QcloudApi(module, config)
+            print(service.generateUrl(action, action_params))
+            result = service.call(action, action_params)
+            print(result)
+        except Exception as e:
+            print('traceback.format_exc():\n%s' % traceback.format_exc())
+        if(result == None):
+            return
+        data = json.loads(result.decode('utf-8'))
+        if(result != None and data["code"] != 0):
+            return None
+        else:
+            return data
