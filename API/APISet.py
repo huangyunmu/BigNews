@@ -52,7 +52,7 @@ class TextKeywords(object):
             print('traceback.format_exc():\n%s' % traceback.format_exc())
         if(result==None):
             return
-        data = json.loads(result)
+        data = json.loads(result.decode('utf-8'))
         if(result!=None and data["code"] != 0):
             return None
         else:
