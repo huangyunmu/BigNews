@@ -4,9 +4,12 @@
 @author: andyh
 '''
 import sys
-sys.path.append("..")
+import json
 from API import APISet
 from Util import DataLoader
+
+
+sys.path.append("..")
 if __name__ == '__main__':
 #     optional 
 #   KeyWord Test
@@ -23,9 +26,14 @@ if __name__ == '__main__':
 #         print("No data return")
 
 # contentGrabTest
-    url='http://gd.ifeng.com/a/20180305/6408870_0.shtml'
+    url = 'http://new.qq.com/cmsn/20180305/20180305005930'
     data = APISet.ContentGrab.getContent(url)
-    print(data)
+    if(data != None):
+        print("code=",data['code'])
+        print("title=",data['title'])
+        print("content=",data['content'])
+    else:
+        print("No data return")
     
 #     url='http://gd.ifeng.com/a/20180305/6408870_0.shtml'
 #     data = APISet.ContentTranscode.getContentTranscode(url)
