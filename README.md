@@ -14,4 +14,6 @@ Check the API test for the details
 Other Notes:
 1 Chinese coding
 Add utf-8 encoding header code in your py code if you are going to use Chinese code
-
+2 Use below code to import the package from different folder
+import sys
+sys.path.append("..")
