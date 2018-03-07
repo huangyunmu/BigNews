@@ -174,11 +174,7 @@ def getsinanews(path):
             outfile.write('\n')
     outfile.close()
 
-
-
-
-    
-
+'''
     #for item in slist:
 def gettencentnews(path):
     inlist=[]
@@ -195,16 +191,17 @@ def gettencentnews(path):
         data.close()
     
     resp = request.urlopen('https://news.qq.com/')
-    print(resp)
-    html_data = resp.read().decode('utf-8')
-    print(html_data)
+    html_data = resp.read().decode('utf-8','ignore')
+    #print(html_data)
     #First box
     soup = bs(html_data,'html.parser')
-    temp = soup.find_all('div',attrs={'bosszone':'ws_tt'})
+    temp = soup.find_all('div',attrs={'class':'con'})
     slist = temp[0].find_all('a')
     print(len(slist))
     for item in slist:
         print(item.string)
+        if (item.string == None):
+            break
         if (len(item.string) > 5) & (t.count(item.string) == 0):
             #print('new news')
             print(item.string)
@@ -232,7 +229,7 @@ def gettencentnews(path):
             json.dump(inlist[i],outfile,ensure_ascii=False)
             outfile.write('\n')
     outfile.close()
-
+'''
     
 def getnetnews(path):
     inlist=[]
@@ -265,7 +262,7 @@ def getnetnews(path):
             content = title
             result = APISet.ContentGrab.getContent(item.attrs['href'])
             if(result!=None):
-                print(result['content'])
+                #print(result['content'])
                 content = result['content']
     
             tempdiction = {}
@@ -280,9 +277,104 @@ def getnetnews(path):
             json.dump(inlist[i],outfile,ensure_ascii=False)
             outfile.write('\n')
     outfile.close()
-#def getfenghuangnews():
+
+def getfenghuangnews(path):
+    inlist=[]
+    t=[]
+    path = 'fenghuang'+path+'.json'
+    
+    try:
+        data = open(path,'r')
+        for line in data:
+            t.append(json.loads(line)['title'])
+        data.close()
+    except IOError:
+        data = open(path,'w')
+        data.close()
+    
+    resp = request.urlopen('http://www.ifeng.com/')
+    html_data = resp.read().decode('utf-8','ignore')
+    #print(html_data)
+    #First box
+    soup = bs(html_data,'html.parser')
+    temp = soup.find_all('div',id='headLineDefault')
+    slist = temp[0].find_all('a')
+    print(len(slist))
+    for item in slist:
+        #print(item.string)
+        if (item.string == None):
+            break
+        if (len(item.string) > 5) & (t.count(item.string) == 0):
+            #print('new news')
+            print(item.string)
+            title = item.string
+            content = title
+            result = APISet.ContentGrab.getContent(item.attrs['href'])
+            if(result!=None):
+                #print(result['content'])
+                content = result['content']
+    
+            tempdiction = {}
+            tempdiction['title']=title
+            tempdiction['jump']=item.attrs['href']
+            tempdiction['content']=content
+            inlist.append(tempdiction)
+        else:print('already exist')
+   
+    with open(path,'a') as outfile:
+        for i in range(0, len(inlist)):
+            json.dump(inlist[i],outfile,ensure_ascii=False)
+            outfile.write('\n')
+    outfile.close()
 #def getxinhuanews():
-#def getsinanews()
+def getxinhuanews(path):
+    inlist=[]
+    t=[]
+    path = 'xinhua'+path+'.json'
+    
+    try:
+        data = open(path,'r')
+        for line in data:
+            t.append(json.loads(line)['title'])
+        data.close()
+    except IOError:
+        data = open(path,'w')
+        data.close()
+    
+    resp = request.urlopen('http://www.xinhuanet.com/')
+    html_data = resp.read().decode('utf-8','ignore')
+    #print(html_data)
+    #First box
+    soup = bs(html_data,'html.parser')
+    temp = soup.find_all('div',attrs={'class':'borderCont'})
+    slist = temp[2].find_all('a')
+    print(len(slist))
+    for item in slist:
+        #print(item.string)
+        if (item.string == None):
+            break
+        if (len(item.string) > 5) & (t.count(item.string) == 0):
+            #print('new news')
+            print(item.string)
+            title = item.string
+            content = title
+            result = APISet.ContentGrab.getContent(item.attrs['href'])
+            if(result!=None):
+                #print(result['content'])
+                content = result['content']
+    
+            tempdiction = {}
+            tempdiction['title']=title
+            tempdiction['jump']=item.attrs['href']
+            tempdiction['content']=content
+            inlist.append(tempdiction)
+        else:print('already exist')
+   
+    with open(path,'a') as outfile:
+        for i in range(0, len(inlist)):
+            json.dump(inlist[i],outfile,ensure_ascii=False)
+            outfile.write('\n')
+    outfile.close()
 
 
 #this is begining of main function
@@ -292,8 +384,10 @@ date = str(datetime.datetime.now().month) + str(lastday)
 
 #getsohunews(date)
 #getsinanews(date)
-#gettencentnews(date) #Something wrong here
-getnetnews(date)
+        #gettencentnews(date) #Something wrong here
+#getnetnews(date)
+#getxinhuanews(date)
+#getfenghuangnews(date)
 
 
 
