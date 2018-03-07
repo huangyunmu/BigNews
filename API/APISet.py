@@ -89,7 +89,7 @@ class ContentGrab(object):
         }
         try:
             service = QcloudApi(module, config)
-            print(service.generateUrl(action, action_params))
+            #print(service.generateUrl(action, action_params))
             result = service.call(action, action_params)
             print(result)
         except Exception as e:

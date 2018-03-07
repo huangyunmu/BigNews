@@ -32,6 +32,7 @@ def getsohunews(path):
     
     resp = request.urlopen('https://www.sohu.com/')
     html_data = resp.read().decode('utf-8')
+    #print(html_data)
     #First box
     soup = bs(html_data,'html.parser')
     temp = soup.find_all('div',attrs={'class':'news'})
@@ -193,11 +194,13 @@ def gettencentnews(path):
         data = open(path,'w')
         data.close()
     
-    resp = request.urlopen('https://www.qq.com/')
+    resp = request.urlopen('https://news.qq.com/')
+    print(resp)
     html_data = resp.read().decode('utf-8')
+    print(html_data)
     #First box
     soup = bs(html_data,'html.parser')
-    temp = soup.find_all('div',attrs={'class':'newsContent'})
+    temp = soup.find_all('div',attrs={'bosszone':'ws_tt'})
     slist = temp[0].find_all('a')
     print(len(slist))
     for item in slist:
@@ -234,7 +237,7 @@ def gettencentnews(path):
 def getnetnews(path):
     inlist=[]
     t=[]
-    path = 'tencent'+path+'.json'
+    path = 'net'+path+'.json'
     
     try:
         data = open(path,'r')
@@ -245,15 +248,16 @@ def getnetnews(path):
         data = open(path,'w')
         data.close()
     
-    resp = request.urlopen('https://www.163.com')
-    html_data = resp.read().decode('utf-8')
+    resp = request.urlopen('http://www.163.com/')
+    html_data = resp.read().decode('gbk','ignore')
+    #print(html_data)
     #First box
     soup = bs(html_data,'html.parser')
-    temp = soup.find_all('div',attrs={'class':'tab_panel current'})
+    temp = soup.find_all('div',attrs={'class':'yaowen_news'})
     slist = temp[0].find_all('a')
     print(len(slist))
     for item in slist:
-        print(item.string)
+        #print(item.string)
         if (len(item.string) > 5) & (t.count(item.string) == 0):
             #print('new news')
             print(item.string)
@@ -263,13 +267,8 @@ def getnetnews(path):
             if(result!=None):
                 print(result['content'])
                 content = result['content']
-            
-            #print(item.attrs['title'])
-            #print(content)
-            #newresult = APISet.TextKeywords.getKeyword(title,content)
-            #print(newresult)
+    
             tempdiction = {}
-
             tempdiction['title']=title
             tempdiction['jump']=item.attrs['href']
             tempdiction['content']=content
@@ -293,7 +292,7 @@ date = str(datetime.datetime.now().month) + str(lastday)
 
 #getsohunews(date)
 #getsinanews(date)
-#gettencentnews(date) Something wrong here
+#gettencentnews(date) #Something wrong here
 getnetnews(date)
 
 
