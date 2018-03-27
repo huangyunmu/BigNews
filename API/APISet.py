@@ -32,6 +32,7 @@ class TextKeywords(object):
         module = 'wenzhi'
         action = 'TextKeywords'
         region = "sz"
+        result = None
         path = DataLoader.getDataPath("keys/keys.txt")
         with open(path) as f:
             secretId = f.readline().strip('\n')
@@ -91,7 +92,7 @@ class ContentGrab(object):
             service = QcloudApi(module, config)
             #print(service.generateUrl(action, action_params))
             result = service.call(action, action_params)
-            print(result)
+            #print(result)
         except Exception as e:
             print('traceback.format_exc():\n%s' % traceback.format_exc())
         if(result == None):
@@ -109,6 +110,7 @@ class LexicalAnalysis(object):
         
     @staticmethod
     def getLexicalAnalysis(text, code=0x00200000, searchType=0):
+        result = None
         '''
     parameter:
         text:The text that need to be split
@@ -137,9 +139,9 @@ class LexicalAnalysis(object):
         }
         try:
             service = QcloudApi(module, config)
-            print(service.generateUrl(action, action_params))
+            #print(service.generateUrl(action, action_params))
             result = service.call(action, action_params)
-            print(result)
+            #print(result)
         except Exception as e:
             print('traceback.format_exc():\n%s' % traceback.format_exc())
         if(result == None):

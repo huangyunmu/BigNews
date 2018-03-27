@@ -3,22 +3,29 @@
 
 @author: andyh
 '''
+
 import sys
+import os
+sys.path.append("..")
 from API import APISet
 
 
-sys.path.append("..")
+
 if __name__ == '__main__':
 #     optional 
 #   KeyWord Test
 #     channel = "CHnews_news_tech"
+
+    try:
+        os.remove("temp.txt")
+        os.remove("tempresult.txt")
+    except:
+        pass
+ 
     title = "闽宁镇的故事"
     content = """
-    闽宁镇，这个当年由习近平亲自命名的扶贫移民区，已从一个“天上无飞雀，地上不长草，风吹沙石跑”的荒芜之地，发展成为常住居民6万余人的特色小镇。
-　　1997年，福建和宁夏启动了对口扶贫协作。作为起点，闽宁镇从无到有、由弱到强，见证了闽、宁携手从单向扶贫到互利共赢的20载
-　　2016年7月19日，习总书记到闽宁镇视察时曾给予高度肯定并指出：“闽宁镇从当年的‘干沙滩’变成了今天的‘金沙滩’，探索出了一条康庄大道，我们要把这个宝贵经验向全国推广。”
-　　如今，曾经的戈壁荒滩变成了现代化的生态移民示范镇，6万多名曾经生活在贫困山区的农民走出大山搬入闽宁镇，通过移民搬迁走上了脱贫致富之路。
-    """
+    李克强谈“国税和地税合并”"""
+    '''
     data = APISet.TextKeywords.getKeyword(title, content)
     if(data != None):
         for item in data:
@@ -27,6 +34,7 @@ if __name__ == '__main__':
             print("type=", item['type'])
     else:
         print("No data return")
+'''
 
 # contentGrabTest
 #     url = 'http://new.qq.com/cmsn/20180305/20180305005930'
@@ -44,12 +52,11 @@ if __name__ == '__main__':
 #     data = APISet.ContentTranscode.getContentTranscode(url)
 #     print(data)
 
+    temp = open("temp.txt","w")
+    tempresult = open("tempresult.txt","w")
     text = """
-    闽宁镇，这个当年由习近平亲自命名的扶贫移民区，已从一个“天上无飞雀，地上不长草，风吹沙石跑”的荒芜之地，发展成为常住居民6万余人的特色小镇。
-　　1997年，福建和宁夏启动了对口扶贫协作。作为起点，闽宁镇从无到有、由弱到强，见证了闽、宁携手从单向扶贫到互利共赢的20载
-　　2016年7月19日，习总书记到闽宁镇视察时曾给予高度肯定并指出：“闽宁镇从当年的‘干沙滩’变成了今天的‘金沙滩’，探索出了一条康庄大道，我们要把这个宝贵经验向全国推广。”
-　　如今，曾经的戈壁荒滩变成了现代化的生态移民示范镇，6万多名曾经生活在贫困山区的农民走出大山搬入闽宁镇，通过移民搬迁走上了脱贫致富之路。
-    """
+    习近平的2018两会时间"""
+
     combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
     if(combtokens != None):
         for item in combtokens:
@@ -57,16 +64,31 @@ if __name__ == '__main__':
 #             print("pos=", item['pos'])
 #             print("wlen=", item['wlen'])
             print("word=", item['word'])
+
+            tempresult.write(item['word']+'\t1\n')
     if(tokens!=None):
         for item in tokens:
 #             print("pos=", item['pos'])
 #             print("wlen=", item['wlen'])
-            print("word=", item['word'])
-            print("wtype=", item['wtype'])
+                
+            #print("word=", item['word'])
+            #print("wtype=", item['wtype'])
+            #print(item['wtype_pos'])
+            
 #             print("wtype_pos=",item["wtype_pos"])
+            i = int(item['wtype_pos'])
+                #print(i)
+            if((i==16) | (i==17) | (i==20) | (i==21) | (i==21)):
+                print(item['word'])
+                print('.........................')
+                temp.write(item['word']+'\t1\n')
     
     else:
         print("No data return")
+
+    temp.close()
+    tempresult.close()
+
+
     
-    
-    
+
