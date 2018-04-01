@@ -1,0 +1,199 @@
+cluster:0
+组建退役军人事务部，传递怎样的明确信号？
+http://news.ifeng.com/a/20180323/56976338_0.shtml
+similarity0.227253171266
+王文涛任黑龙江省委副书记，陆昊不再担任(图/简历)
+http://news.ifeng.com/a/20180323/56975387_0.shtml
+similarity0.285900569998
+反击！中国拟对美部分进口产品加征关税
+http://news.ifeng.com/a/20180323/56979506_0.shtml
+similarity0.115620310775
+台统派赴蔡办纪念坠亡退将 现场被五星红旗占领(图)
+http://news.ifeng.com/a/20180322/56971434_0.shtml
+similarity0.188103536521
+习近平主席特别代表杨洁篪将正式访问南非
+http://www.xinhuanet.com/politics/leaders/2018-03/22/c_1122577486.htm
+similarity0.105688782013
+全国人大常委会副委员长王东明任全国总工会主席
+http://www.xinhuanet.com/renshi/2018-03/22/c_1122577886.htm
+similarity0.11731065134
+张茅任市场监管总局局长
+http://www.xinhuanet.com/renshi/2018-03/23/c_1122578408.htm
+similarity0.0586553256698
+我国组建退役军人事务部 传递怎样的明确信号？
+http://mil.news.sina.com.cn/china/2018-03-23/doc-ifysnevk9028656.shtml
+similarity0.227253171266
+台统派赴蔡办纪念坠亡退将 现场被五星红旗占领
+http://news.sina.com.cn/c/gat/2018-03-22/doc-ifysnzmf5044164.shtml
+similarity0.188103536521
+王文涛接棒陆昊 来不及告别在高铁上写了一封信
+http://news.sina.com.cn/c/nd/2018-03-23/doc-ifysnevk9472583.shtml
+similarity0.249511646933
+台湾第一大市长官登陆 曾在北京大学教了一年课
+http://news.sina.com.cn/c/gat/2018-03-22/doc-ifysnevk8268298.shtml
+similarity0.0579732869992
+这个大人物称要暴打特朗普
+http://news.sina.com.cn/w/zx/2018-03-22/doc-ifysnzyc6082072.shtml
+similarity0.0934819252862
+飞行员表演特技时引擎熄火 坠地前拉升捡回一命
+http://news.sina.com.cn/zxt/#255450786
+similarity0.142448648055
+杭州共享单车今年要瘦身三分之一 77万辆减至50万辆
+http://zj.sina.com.cn/news/m/2018-03-23/detail-ifysnevk9102838.shtml 
+similarity0.0879829885047
+中方回击!对美产品加关税
+http://finance.sina.com.cn/china/gncj/2018-03-23/doc-ifysnevk9027949.shtml
+similarity0.16500179385
+下半年楼市温度料再降
+http://news.leju.com/
+similarity0.114822101698
+丰田暂停自动驾驶测试
+http://auto.sina.com.cn/news/2018-03-22/detail-ifysnevk4663933.shtml
+similarity0.147732787268
+新版冲上云霄瞄准黃子韬AB
+http://fashion.sina.com.cn/s/ic/2018-03-22/1729/doc-ifysnevk5924926.shtml
+similarity0.145039425586
+自拍新地标是洗手间
+http://fashion.sina.com.cn/l/ds/2018-03-22/1507/doc-ifysnevk5220000.shtml
+similarity0.124642567048
+金泰希产后复出肌肤零瑕疵
+http://fashion.sina.com.cn/b/sk/2018-03-22/1713/doc-ifysnevk6423629.shtml
+similarity0.108812254674
+习近平举行仪式欢迎喀麦隆总统访华并同其举行会谈
+http://www.sohu.com/a/226153146_428290?g=0?code=d132d826edfbb19acc55a15433be80dc
+similarity0.114409501281
+A股三大指数均大跌超3%，分析称震荡不可避免
+https://www.sohu.com/a/226195539_100001551
+similarity0.586067927526
+中美贸易争端如何影响A股市场？
+http://www.sohu.com/a/226179336_313745
+similarity0.587865506846
+纪录片镜头下生而不凡的罕见病人：痛感 接纳 转变
+http://www.sohu.com/a/226175381_267106
+similarity0.120367873974
+环保人士曝光污染被拘续：暂缓拘留 当事人称不严谨但未造谣
+https://www.sohu.com/a/226179360_658437
+similarity0.109158717312
+姑娘应聘主播被要求整形 手术做完发现欠4.5万贷款
+http://www.sohu.com/a/226172681_119659
+similarity0.121915681641
+中美贸易战一触即发，A股三大指数早盘集体大跌3%
+https://www.sohu.com/a/226183337_100001551
+similarity0.571856739982
+反击！商务部：将对美进口部分产品加征关税
+//www.sohu.com/a/226173220_561670?g=0
+similarity0.243411076172
+手机连着WiFi的时候，流量会偷跑吗？答案你绝对想不到
+//www.sohu.com/a/226131525_99962880
+similarity0.159262430177
+上海市公安局：出国定居注销户口非新规 2003年已明确
+//www.sohu.com/a/226128070_260616
+similarity0.285900569998
+习近平24字点赞中国人民
+http://news.163.com/18/0322/22/DDHKNVIJ000187VG.html
+similarity0.124642567048
+新华社评论员:永远做中国人民和中华民族的主心骨
+http://news.163.com/18/0322/19/DDHBIRCN00018AOQ.html
+similarity0.203727638034
+"亿万富姐"吴英减刑案宣判：无期减刑至25年
+http://news.163.com/18/0323/10/DDIVGDPM0001899O.html
+similarity0.111425017508
+李明博被捕前发3页亲笔信:不怨他人 自己的错
+http://news.163.com/18/0323/03/DDI8HALS0001875O.html
+similarity0.0830950446989
+贾跃亭不再担任乐视控股有限公司法定代表人
+http://news.163.com/17/0703/17/COEGHOG30001899O.html
+similarity0.1536371804
+cluster:1
+人工智能产业快速发展 2020年规模将破1600亿
+http://www.xinhuanet.com/fortune/2018-03/23/c_1122578183.htm
+similarity1.0
+cluster:2
+减肥就不能吃晚餐了？错！吃5顿更有可能瘦下来
+http://www.sohu.com/a/226118229_104952
+similarity1.0
+cluster:3
+美欲将孔子学院列“外国代理人” 华春莹孔子名言回应
+http://news.ifeng.com/a/20180322/56966588_0.shtml
+similarity1.0
+cluster:4
+机构改革后的“双首长” 和以前有什么不同
+http://news.sina.com.cn/c/nd/2018-03-23/doc-ifysnevk9024132.shtml
+similarity1.0
+cluster:5
+北京：四环内限制各类用地调整建商品住宅
+http://www.xinhuanet.com/fortune/2018-03/23/c_1122578446.htm
+similarity1.0
+cluster:6
+云南看守所脱逃涉毒死缓犯已被抓获
+http://news.ifeng.com/a/20180323/56986591_0.shtml
+similarity1.0
+云南脱逃涉毒死缓犯被抓获:警方曾悬赏最高10万
+http://news.163.com/18/0323/10/DDJ0TTCP0001899O.html
+similarity1.0
+cluster:7
+习近平同马克龙通电话
+http://news.ifeng.com/a/20180322/56968710_0.shtml
+similarity0.980346229222
+美国对华出手 中国如何奉陪到底？ 
+http://news.ifeng.com/a/20180323/56984787_0.shtml
+similarity0.974298435205
+纪录片镜头下的他们生而不凡：罕见病患就是不同
+http://www.xinhuanet.com/local/2018-03/23/c_1122578145.htm
+similarity0.974298435205
+习近平举行仪式欢迎喀麦隆总统访华并举行会谈
+http://news.sina.com.cn/china/xlxw/2018-03-22/doc-ifysnevk8129989.shtml
+similarity0.819507275252
+习近平应约同马克龙通电话
+http://news.sina.com.cn/china/xlxw/2018-03-22/doc-ifysnyuq1684398.shtml
+similarity0.980346229222
+中国遣返澳反华前议员 澳外长：那是中国的权利
+http://news.sina.com.cn/w/2018-03-23/doc-ifyspiks5799432.shtml
+similarity0.939545315612
+驻美使馆:奉陪到底
+http://finance.sina.com.cn/stock/usstock/c/2018-03-23/doc-ifysnevk8902306.shtml
+similarity0.974298435205
+新华社：对最坏情况有充分准备
+http://finance.sina.com.cn/roll/2018-03-23/doc-ifyspeee4120367.shtml
+similarity0.974298435205
+习近平应约同马克龙通电话
+http://www.sohu.com/a/226144134_267106?g=0?code=d92509bcb8439131810639d129fd531b
+similarity0.975122157569
+国际社会积极评价中国两会成果
+http://www.sohu.com/a/226171347_157267?g=0?code=3d23aaf764e24c7f1c4c2609d446dd9
+similarity0.974298435205
+商务部：中方不希望打贸易战 但绝不害怕贸易战
+http://news.163.com/18/0323/08/DDIPS0SA0001899O.html
+similarity0.86615214112
+cluster:8
+安徽严肃查处医院骗保事件 多名责任人被严惩
+http://www.xinhuanet.com/politics/2018-03/23/c_1122580721.htm
+similarity0.950916066739
+“中国造”处产业链低端？品质革命已在路上！
+http://www.xinhuanet.com/fortune/2018-03/23/c_1122580003.htm
+similarity0.800906816364
+cluster:9
+习近平举行仪式欢迎喀麦隆总统访华
+http://news.ifeng.com/a/20180322/56971068_0.shtml
+similarity0.98158823565
+习近平24字点赞中国人民
+http://news.ifeng.com/a/20180322/56973089_0.shtml
+similarity0.72447538959
+新华社评论员：永远做中国人民和中华民族的主心骨
+http://news.ifeng.com/a/20180322/56971117_0.shtml
+similarity0.737862907256
+深化党和国家机构改革方案诞生记
+http://news.ifeng.com/a/20180322/56972969_0.shtml
+similarity0.98158823565
+习近平24字点赞中国人民
+http://news.sina.com.cn/china/xlxw/2018-03-22/doc-ifysnevk8125639.shtml
+similarity0.98158823565
+习近平24字点赞中国人民
+http://www.sohu.com/a/226070744_428290?g=0?code=b83d6f049235b83511a5b76521ddc0bd
+similarity0.98158823565
+习近平举行仪式欢迎喀麦隆总统访华
+http://news.163.com/18/0322/20/DDHG33BN000189FH.html
+similarity0.98158823565
+习近平同马克龙通电话
+http://news.163.com/18/0322/19/DDHBTMDM0001899O.html
+similarity0.98158823565
