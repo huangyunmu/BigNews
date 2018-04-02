@@ -71,8 +71,8 @@ class ContentGrab(object):
     parameter:
         url:The target url
     return:
-        data:The result in json format.Fields contained:keyword,score,type
-        use data['keyword'] to access
+        data:The result in json format.Fields contained:code,title,content
+        use data['title'] to access
     '''
         module = 'wenzhi'
         action = 'ContentGrab'

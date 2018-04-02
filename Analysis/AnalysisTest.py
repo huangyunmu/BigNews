@@ -10,12 +10,13 @@ import Cluster
 if __name__ == '__main__':
 #     nameList=["fenghuang321.json","xinhua321.json","sina321.json","sohu321.json","xinhua321.json"]
 #     nameList=["fenghuang322.json","xinhua322.json","sina322.json","sohu322.json","net322.json"]
-    nameList=["fenghuang323.json","xinhua323.json","sina323.json","sohu323.json","net323.json"]
+#     nameList=["fenghuang323.json","xinhua323.json","sina323.json","sohu323.json","net323.json"]
+    nameList=["fenghuang42.json","xinhua42.json","sina42.json","sohu42.json","net42.json"]
 #     nameList=["test2.json"]
     worker=Worker.Worker()
     
     for name in nameList:
-        filename=DataLoader.getDataPath("testData\\"+name)
+        filename=DataLoader.getDataPath("testData\\42\\"+name)
         data=worker.loadData(filename)
         worker.addNews(data)
 #         worker.printAllNews()

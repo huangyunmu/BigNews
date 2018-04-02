@@ -7,6 +7,7 @@ from API import APISet
 from Util import DataLoader
 from operator import itemgetter
 from bosonnlp import BosonNLP
+import random
 
 import datetime
 import threading
@@ -21,6 +22,28 @@ import sys
 # install beautifulsoup4 is necessary
 # install $ pip install -U bosonnlp is necessary
 
+top_k=10
+def getContentWithRetry(url,retryLimit=6,retryIntervalLimit=16,retryIntervalBegin=2):
+    content=None
+    retryCount=0
+    retryInterval=retryIntervalBegin
+    while(retryCount<retryLimit):
+        result = APISet.ContentGrab.getContent(url)
+        if(result!=None):
+#           print(result['content'])
+            content = result['content']
+            retryInterval=retryIntervalBegin
+            break
+        else:
+            retryCount=retryCount+1
+            print("retry: "+str(retryCount)+"for news: "+url)
+            if(retryInterval<retryIntervalLimit):
+                retryInterval=retryInterval*2
+            time.sleep(retryInterval)  
+    if(content==None):
+        return None
+    else:
+        return content
 def writeresult(path,inlist):
     os.remove(path)
     #Delete wrong things
@@ -98,21 +121,24 @@ def getsohunews(path):
     slist = temp[0].find_all('a')
     for item in slist:
         if len(item.attrs['title']) < 8:
-            break
+            continue
         if t.count(item.attrs['title']) == 0:
             #print('new news')
-            
             print(item.attrs['title'])
             title = item.attrs['title']
-            t.append(title)
             content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result!=None):
-                #print(result['content'])
-                content = result['content']    
+           
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+                print(content)
+                pass
             
+            t.append(title)
             newtext=content
-
             tempdiction = {}
             tempdiction['title']=title
             tempdiction['jump']=item.attrs['href']
@@ -130,7 +156,9 @@ def getsohunews(path):
                 combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
                 if(combtokens != None):
                     for item in combtokens:
-                        tempresult.write(item['word']+'\t1\n')    
+#                         print(item)
+                        if(item!=None):
+                            tempresult.write(item['word']+'\t1\n')    
                 tempresult.close()
                 
                 Dic={}
@@ -184,20 +212,21 @@ def getsohunews(path):
     for item in slist:
         if t.count(item.attrs['title']) == 0:
             title = item.attrs['title']
-            t.append(title)
             print('new news')
             content = title
             print(title)
-            result = APISet.ContentGrab.getContent('http:'+item.attrs['href'])
-            if(result!=None):
-                #print(result['content'])
-                content = result['content']
             
-            #print(item.attrs['title'])
-            #print(content)
-            #newresult = APISet.TextKeywords.getKeyword(title,content)
-            #print(newresult)
-            
+            tempUrl=item.attrs['href']
+            if(tempUrl.find("http:")==-1):
+                tempUrl='http:'+tempUrl
+            content=getContentWithRetry(tempUrl)
+                
+            # for title only news, keyword will not be analzed at present
+            if(content==None):
+                print("Cannot get content of news: "+title)
+                continue
+            #if content get, add the title to title list
+            t.append(title)
             newtext=content
 
             tempdiction = {}
@@ -217,6 +246,8 @@ def getsohunews(path):
                 combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
                 if(combtokens != None):
                     for item in combtokens:
+                        if(item==None):
+                            continue
                         tempresult.write(item['word']+'\t1\n')    
                 tempresult.close()
                 
@@ -300,13 +331,16 @@ def getsinanews(path):
             #print('new news')
             print(item.string)
             title = item.string
-            t.append(title)
-            content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result!=None):
-                #print(result['content'])
-                content = result['content']
             
+            content = title
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            
+            if(content==None):
+                print("Cannot get content for news: "+title)
+                continue
+            
+            t.append(title)
             newtext=content
 
             tempdiction = {}
@@ -412,13 +446,20 @@ def getnetnews(path):
             #print('new news')
             print(item.string)
             title = item.string
-            t.append(title)
+            
             content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result!=None):
-                #print(result['content'])
-                content = result['content']
-
+            
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+                print(content)
+                pass
+            #skip the news that cannot get content
+            t.append(title)
+            
             newtext=content
             tempdiction = {}
             tempdiction['title']=title
@@ -526,11 +567,17 @@ def getfenghuangnews(path):
             print(item.attrs['href'])
         if (len(item.string) > 8) & (t.count(item.string) == 0):
             content = item.string
+            
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            if(content==None):
+                print("cannot get content of news: "+item.string)
+                continue
+            else:
+                print(content)
+                pass
+            #skip the news that cannot get content
             t.append(item.string)
-            #print('new news')
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result!=None):
-                content = result['content']
             
             newtext=content
 
@@ -634,7 +681,7 @@ def getxinhuanews(path):
     for item in slist:
         #print(item.string)
         if (item.string == None):
-            break
+            continue
         if (len(item.string) > 8) & (t.count(item.string) == 0):
 
             t.append(item.string)
@@ -727,7 +774,8 @@ def getxinhuanews(path):
             inlist.append(tempdiction)  
                 
         
-        else:print('already exist')
+        else:
+            print('already exist or too long')
     writeresult(path,inlist)
 def sleeptime(hour,minu,sec):
     return hour*3600+minu*60+sec
@@ -737,11 +785,11 @@ date = str(datetime.datetime.now().month) + str(lastday)
 nlp = BosonNLP('4T70m9OU.24533.fXkOVBLkOFVM')
 second = sleeptime(0,10,0)
 while(1==1):
-    getsohunews(date)
-    getsinanews(date)
-    getnetnews(date)
+#     getsohunews(date)
+#     getsinanews(date)
+#     getnetnews(date)
     getxinhuanews(date)
-    getfenghuangnews(date)
+#     getfenghuangnews(date)
     time.sleep(second)
 
 
