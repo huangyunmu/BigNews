@@ -18,6 +18,7 @@ import os
 import sys
 
 
+
 #来源：疯狂的赵凡越
 # install beautifulsoup4 is necessary
 # install $ pip install -U bosonnlp is necessary
@@ -237,7 +238,7 @@ def getsohunews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
 
                 for weight, word in result:
                     sumfre=sumfre+weight
@@ -289,7 +290,7 @@ def getsohunews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
 
                 for weight, word in result:
                     sumfre=sumfre+weight
@@ -365,7 +366,7 @@ def getsinanews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
 
                 for weight, word in result:
                     sumfre=sumfre+weight
@@ -444,7 +445,7 @@ def getnetnews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
                 for weight, word in result:
                     sumfre=sumfre+weight
                 for weight,word in result:
@@ -529,7 +530,7 @@ def getfenghuangnews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
 
                 for weight, word in result:
                     sumfre=sumfre+weight
@@ -584,11 +585,15 @@ def getxinhuanews(path):
             tempdiction['jump']=item.attrs['href']
                
             content = ''
-            temp_data = request.urlopen(item.attrs['href'])
-            temphtml = temp_data.read().decode('utf-8','ignore')
-            tempsoup = bs(temphtml,'html.parser')
-            temptemp = tempsoup.find_all('div',id = 'p-detail')
+            
 
+            try:
+                temp_data = request.urlopen(item.attrs['href'])
+                temphtml = temp_data.read().decode('utf-8','ignore')
+                tempsoup = bs(temphtml,'html.parser')
+                temptemp = tempsoup.find_all('div',id = 'p-detail')
+            except:
+                continue
             try:
                 templist = temptemp[0].find_all('p')
             except:
@@ -603,12 +608,10 @@ def getxinhuanews(path):
             tempdiction['content']=content
             newtext = content
 
-            tempresult = open("tempresult.txt","w")
             if(len(newtext)<30):
                 continue
             if(len(newtext)>300):
-                while(len(newtext)>300):
-                    tempdiction['keywords']=wordcount(newtext)
+                tempdiction['keywords']=wordcount(newtext)
             else:
                 readylist=[]
                 sumfre=0
@@ -616,7 +619,7 @@ def getxinhuanews(path):
                 title = newtext
                 tempwords=[]
 
-                result = nlp.extract_keywords(newtext,top_k = 4)
+                result = nlp.extract_keywords(newtext,top_k = 7)
 
                 for weight, word in result:
                     sumfre=sumfre+weight
@@ -641,9 +644,9 @@ date = str(datetime.datetime.now().month) + str(lastday)
 nlp = BosonNLP('4T70m9OU.24533.fXkOVBLkOFVM')
 second = sleeptime(0,10,0)
 while(1==1):
-    getsohunews(date)
-    getsinanews(date)
-    getnetnews(date)
+    #getsohunews(date)
+    #getsinanews(date)
+    #getnetnews(date)
     getxinhuanews(date)
     getfenghuangnews(date)
     time.sleep(second)
