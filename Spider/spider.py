@@ -22,7 +22,7 @@ import sys
 # install beautifulsoup4 is necessary
 # install $ pip install -U bosonnlp is necessary
 
-top_k=10
+top_k = 7
 def getContentWithRetry(url,retryLimit=6,retryIntervalLimit=16,retryIntervalBegin=2):
     content=None
     retryCount=0
@@ -92,6 +92,49 @@ def loadData(path):
         data.close()
         return t
 '''
+def wordcount(temptext):
+    totalwords = 7
+    newtext = temptext
+    tempresult = open("tempresult.txt","w")
+    while(len(newtext)>300):
+        text = newtext[0:299]
+        newtext = newtext[300:len(newtext)]
+        combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
+        if(combtokens != None):
+            for item in combtokens:
+                tempresult.write(item['word']+'\t1\n')
+    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
+    if(combtokens != None):
+        for item in combtokens:
+            if(item!=None):
+                tempresult.write(item['word']+'\t1\n')    
+    tempresult.close()
+                
+    Dic={}
+    for line in open("tempresult.txt"):
+        line = line.strip()
+        word = line.split('\t',1)[0]                
+        try:
+            temp = int(1)
+            Dic[word]=Dic.get(word,0)+temp
+        except:
+            pass
+                    
+    FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
+    sumfre = 0
+    readylist=[]
+    for key,values in FinalList[0:totalwords]:
+        sumfre = sumfre+values
+    for key,values in FinalList[0:totalwords]:
+        readylist.append(key)
+        readylist.append(values/sumfre)
+                    
+    print(readylist)
+    os.remove("tempresult.txt")
+    return readylist
+    #tempdiction['keywords']=readylist              
+    
+    
 def getsohunews(path):
     inlist=[]
     t=[]
@@ -145,6 +188,8 @@ def getsohunews(path):
             tempdiction['content']=content
             
             if(len(newtext)>300):
+                tempdiction['keywords']=wordcount(newtext)
+                '''
                 tempresult = open("tempresult.txt","w")
                 while(len(newtext)>300):
                     text = newtext[0:299]
@@ -183,7 +228,7 @@ def getsohunews(path):
                 print(readylist)
                 tempdiction['keywords']=readylist              
                 os.remove("tempresult.txt")
-                
+                '''
             else:
                 
                 readylist=[]
@@ -235,47 +280,9 @@ def getsohunews(path):
             tempdiction['content']=content
             
             if(len(newtext)>300):
-                tempresult = open("tempresult.txt","w")
-                while(len(newtext)>300):
-                    text = newtext[0:299]
-                    newtext = newtext[300:len(newtext)]
-                    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
-                    if(combtokens != None):
-                        for item in combtokens:
-                            tempresult.write(item['word']+'\t1\n')
-                combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
-                if(combtokens != None):
-                    for item in combtokens:
-                        if(item==None):
-                            continue
-                        tempresult.write(item['word']+'\t1\n')    
-                tempresult.close()
-                
-                Dic={}
-                for line in open("tempresult.txt"):
-                    line = line.strip()
-                    word = line.split('\t',1)[0]                
-                    try:
-                        temp = int(1)
-                        Dic[word]=Dic.get(word,0)+temp
-                    except:
-                        pass
-                    
-                FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
-                sumfre = 0
-                readylist=[]
-                for key,values in FinalList[0:4]:
-                    sumfre = sumfre+values
-                for key,values in FinalList[0:4]:
-                    readylist.append(key)
-                    readylist.append(values/sumfre)
-                    
-                print(readylist)
-                tempdiction['keywords']=readylist              
-                os.remove("tempresult.txt")
+                tempdiction['keywords']=wordcount(newtext)
                 
             else:
-                
                 readylist=[]
                 sumfre=0
                 print("NEW TEXT："+newtext)
@@ -349,46 +356,8 @@ def getsinanews(path):
             tempdiction['content']=content
             
             if(len(newtext)>300):
-                tempresult = open("tempresult.txt","w")
-                while(len(newtext)>300):
-                    text = newtext[0:299]
-                    newtext = newtext[300:len(newtext)]
-                    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
-                    if(combtokens != None):
-                        for item in combtokens:
-                            tempresult.write(item['word']+'\t1\n')
-                combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
-                if(combtokens != None):
-                    for item in combtokens:
-                        try:
-                            tempresult.write(item['word']+'\t1\n')
-                        except:
-                            pass
-                tempresult.close()
-                
-                Dic={}
-                for line in open("tempresult.txt"):
-                    line = line.strip()
-                    word = line.split('\t',1)[0]                
-                    try:
-                        temp = int(1)
-                        Dic[word]=Dic.get(word,0)+temp
-                    except:
-                        pass
-                    
-                FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
-                sumfre = 0
-                readylist=[]
-                for key,values in FinalList[0:4]:
-                    sumfre = sumfre+values
-                for key,values in FinalList[0:4]:
-                    readylist.append(key)
-                    readylist.append(values/sumfre)
-                    
-                print(readylist)
-                tempdiction['keywords']=readylist              
-                os.remove("tempresult.txt")
-                
+                tempdiction['keywords']=wordcount(newtext)
+               
             else:
                 readylist=[]
                 sumfre=0
@@ -410,7 +379,6 @@ def getsinanews(path):
             inlist.append(tempdiction)
             
         else:print('already exist')
-   
     writeresult(path,inlist)
     
 def getnetnews(path):
@@ -467,43 +435,7 @@ def getnetnews(path):
             tempdiction['content']=content
             
             if(len(newtext)>300):
-                tempresult = open("tempresult.txt","w")
-                while(len(newtext)>300):
-                    text = newtext[0:299]
-                    newtext = newtext[300:len(newtext)]
-                    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
-                    if(combtokens != None):
-                        for item in combtokens:
-                            tempresult.write(item['word']+'\t1\n')
-                combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
-                if(combtokens != None):
-                    for item in combtokens:
-                        try:
-                            tempresult.write(item['word']+'\t1\n')
-                        except:
-                            pass
-                tempresult.close()
-                Dic={}
-                for line in open("tempresult.txt"):
-                    line = line.strip()
-                    word = line.split('\t',1)[0]                
-                    try:
-                        temp = int(1)
-                        Dic[word]=Dic.get(word,0)+temp
-                    except:
-                        pass
-                FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
-                sumfre = 0
-                readylist=[]
-                for key,values in FinalList[0:4]:
-                    sumfre = sumfre+values
-                for key,values in FinalList[0:4]:
-                    readylist.append(key)
-                    readylist.append(values/sumfre)
-                print(readylist)
-                tempdiction['keywords']=readylist
-                tempresult.close()
-                os.remove("tempresult.txt")
+                tempdiction['keywords']=wordcount(newtext)
             else:    
                 readylist=[]
                 sumfre=0
@@ -587,45 +519,7 @@ def getfenghuangnews(path):
             tempdiction['content']=content
             
             if(len(newtext)>300):
-                tempresult = open("tempresult.txt","w")
-                while(len(newtext)>300):
-                    text = newtext[0:299]
-                    newtext = newtext[300:len(newtext)]
-                    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
-                    if(combtokens != None):
-                        for item in combtokens:
-                            tempresult.write(item['word']+'\t1\n')
-                combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
-                if(combtokens != None):
-                    for item in combtokens:
-                        try:
-                            tempresult.write(item['word']+'\t1\n')
-                        except:
-                            pass
-                tempresult.close()
-                
-                Dic={}
-                for line in open("tempresult.txt"):
-                    line = line.strip()
-                    word = line.split('\t',1)[0]                
-                    try:
-                        temp = int(1)
-                        Dic[word]=Dic.get(word,0)+temp
-                    except:
-                        pass
-                    
-                FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
-                sumfre = 0
-                readylist=[]
-                for key,values in FinalList[0:4]:
-                    sumfre = sumfre+values
-                for key,values in FinalList[0:4]:
-                    readylist.append(key)
-                    readylist.append(values/sumfre)
-                    
-                print(readylist)
-                tempdiction['keywords']=readylist              
-                os.remove("tempresult.txt")
+                tempdiction['keywords']=wordcount(newtext)
                 
             else:
                 
@@ -714,45 +608,7 @@ def getxinhuanews(path):
                 continue
             if(len(newtext)>300):
                 while(len(newtext)>300):
-                    text = newtext[0:299]
-                    newtext = newtext[300:len(newtext)]
-                    combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(text)
-                    if(combtokens != None):
-                        for item in combtokens:
-                            tempresult.write(item['word']+'\t1\n')
-                combtokens,tokens = APISet.LexicalAnalysis.getLexicalAnalysis(newtext)
-                if(combtokens != None):
-                    for item in combtokens:
-                        try:
-                            tempresult.write(item['word']+'\t1\n')
-                        except:
-                            pass
-                tempresult.close()
-                
-                Dic={}
-                for line in open("tempresult.txt"):
-                    line = line.strip()
-                    word = line.split('\t',1)[0]
-                    
-                    try:
-                        temp = int(1)
-                        Dic[word]=Dic.get(word,0)+temp
-                    except:
-                        pass
-                    
-                FinalList = sorted(Dic.items(),key = itemgetter(1),reverse = True)
-                sumfre = 0
-                readylist=[]
-                for key,values in FinalList[0:4]:
-                    sumfre = sumfre+values
-                for key,values in FinalList[0:4]:
-                    readylist.append(key)
-                    readylist.append(values/sumfre)
-                    
-                print(readylist)
-                tempdiction['keywords']=readylist
-                os.remove("tempresult.txt")
-                
+                    tempdiction['keywords']=wordcount(newtext)
             else:
                 readylist=[]
                 sumfre=0
@@ -785,11 +641,11 @@ date = str(datetime.datetime.now().month) + str(lastday)
 nlp = BosonNLP('4T70m9OU.24533.fXkOVBLkOFVM')
 second = sleeptime(0,10,0)
 while(1==1):
-#     getsohunews(date)
-#     getsinanews(date)
-#     getnetnews(date)
+    getsohunews(date)
+    getsinanews(date)
+    getnetnews(date)
     getxinhuanews(date)
-#     getfenghuangnews(date)
+    getfenghuangnews(date)
     time.sleep(second)
 
 
