@@ -5,6 +5,7 @@
 '''
 import numpy as np
 from sklearn.cluster import KMeans
+
 class Cluster(object):
     '''
     classdocs
@@ -67,6 +68,7 @@ class Cluster(object):
     def getHierResult(self, k=20, limit=0.8):
         l = len(self.newsVectorList)
 #         l=25
+        vectorDistanceStrategy="Cos"
         maxSimilarity = 0
         indexI = -1
         indexJ = -1
@@ -84,25 +86,27 @@ class Cluster(object):
             newsMergedList.append([self.newsVectorList[i].newsId])
         
         for i in range(l):
-                for j in range(i+1):
-                    similarityMatrix[i][j]=Cluster.getCosSimi(self.newsVectorList[i].newsVector, self.newsVectorList[j].newsVector)
+                for j in range(i):
+                    similarityMatrix[i][j]=Cluster.getVectorSimilarity(self.newsVectorList[i].newsVector, self.newsVectorList[j].newsVector,strategy=vectorDistanceStrategy)
                     similarityMatrix[j][i]=similarityMatrix[i][j]
 #                     if(similarityMatrix[i][j]<limit):
 # #                         print("<limit")
 #                         similarityMatrix[i][j]=0
 #                         similarityMatrix[j][i]=0
-                    if(i!=j and similarityMatrix[i][j] > maxSimilarity):
+                    if(similarityMatrix[i][j] > maxSimilarity):
                         maxSimilarity = similarityMatrix[i][j]
                         indexI = i
                         indexJ = j
-        print(similarityMatrix)
+#         print(similarityMatrix)
+#         for item in newsMergedList:
+#             print(item)
         while(True):
             # merge two closest point
             if(indexI == -1):
                 break
             if(maxSimilarity<limit):
                 break
-#             print(maxSimilarity)
+#             print("max similarity:"+str(maxSimilarity))
             simiVectorI = similarityMatrix[indexI]
             simiVectorJ = similarityMatrix[indexJ]
             # delete data in index i and index j
@@ -122,9 +126,11 @@ class Cluster(object):
             similarityMatrix=np.row_stack((similarityMatrix, newSimiVector))
             newSimiVector=np.append(newSimiVector, 0)
             similarityMatrix=np.column_stack((similarityMatrix, newSimiVector))
-            tempNewIDList=newsMergedList[indexI]
-            newsMergedList[indexJ]=newsMergedList[indexJ]+tempNewIDList
+            tempNewIDList=newsMergedList[indexI]+newsMergedList[indexJ]
+            
             newsMergedList.pop(indexI)
+            newsMergedList.pop(indexJ)
+            newsMergedList.append(tempNewIDList)
 #             print(similarityMatrix)
 #             print(newsMergedList)
             #update l
@@ -140,6 +146,9 @@ class Cluster(object):
                         maxSimilarity = similarityMatrix[i][j]
                         indexI = i
                         indexJ = j
+#             print(similarityMatrix)
+#             for item in newsMergedList:
+#                 print(item)
         return newsMergedList
         
     def getKMeansPlusResult(self, k=20):
@@ -149,9 +158,26 @@ class Cluster(object):
         pass
         estimator = KMeans(n_clusters=k)
     
+#     @staticmethod
+#     def getCosSimi(vector1, vector2):
+#         similarity = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * (np.linalg.norm(vector2)))
+#         return similarity
     @staticmethod
-    def getCosSimi(vector1, vector2):
-        similarity = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * (np.linalg.norm(vector2)))
-        return similarity
-        
+    def getVectorSimilarity(vector1,vector2,strategy="Cos"):
+        #cos similarity
+        similarity=0
+        if(strategy=="Cos"):
+            similarity = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * (np.linalg.norm(vector2)))
+        #Jaccard similarity
+        if(strategy=="Jac"):
+            l=len(vector1)
+            countOr=0
+            countAnd=0
+            for i in range(l):
+                if(vector1[i]>0 or vector2[i]>0):
+                    countOr=countOr+1
+                if(vector1[i]>0 and vector2[i]>0):
+                    countAnd=countAnd+1
+            similarity=countAnd/countOr
+        return  similarity
         
