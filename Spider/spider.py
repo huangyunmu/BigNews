@@ -21,6 +21,27 @@ import sys
 # install beautifulsoup4 is necessary
 # install $ pip install -U bosonnlp is necessary
 default_top_k=7
+def getContentWithRetry(url,retryLimit=3,retryIntervalLimit=8,retryIntervalBegin=2):
+    content=None
+    retryCount=0
+    retryInterval=retryIntervalBegin
+    while(retryCount<retryLimit):
+        result = APISet.ContentGrab.getContent(url)
+        if(result!=None):
+#           print(result['content'])
+            content = result['content']
+            retryInterval=retryIntervalBegin
+            break
+        else:
+            retryCount=retryCount+1
+            print("retry: "+str(retryCount)+"for news: "+url)
+            if(retryInterval<retryIntervalLimit):
+                retryInterval=retryInterval*2
+            time.sleep(retryInterval)  
+    if(content==None):
+        return None
+    else:
+        return content
 def writeresult(path, inlist):
     os.remove(path)
     # Delete wrong things
@@ -129,13 +150,16 @@ def getsohunews(currentDate):
             
             print(item.attrs['title'])
             title = item.attrs['title']
+           
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+                print(content)
+                pass
             t.append(title)
-            content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result != None):
-                # print(result['content'])
-                content = result['content']    
-            
             newtext = content
 
             tempdiction = {}
@@ -174,15 +198,20 @@ def getsohunews(currentDate):
             print('new news')
             content = title
             print(title)
-            result = APISet.ContentGrab.getContent('http:' + item.attrs['href'])
-            if(result != None):
-                # print(result['content'])
-                content = result['content']
-            
-            # print(item.attrs['title'])
-            # print(content)
-            # newresult = APISet.TextKeywords.getKeyword(title,content)
-            # print(newresult)
+            tempUrl=item.attrs['href']
+            if(tempUrl.find("http:")==-1):
+                tempUrl='http:'+tempUrl
+            content=getContentWithRetry(tempUrl)
+                
+            # for title only news, keyword will not be analzed at present
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+#                 print(content)
+                pass
+            #if content get, add the title to title list
+            t.append(title)
             
             newtext = content
 
@@ -248,12 +277,18 @@ def getsinanews(currentDate):
             # print('new news')
             print(item.string)
             title = item.string
+            
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            # for title only news, keyword will not be analzed at present
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+#                 print(content)
+                pass
+            #if content get, add the title to title list
             t.append(title)
-            content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result != None):
-                # print(result['content'])
-                content = result['content']
             
             newtext = content
 
@@ -321,13 +356,19 @@ def getnetnews(currentDate):
             # print('new news')
             print(item.string)
             title = item.string
+            
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            # for title only news, keyword will not be analzed at present
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+#                 print(content)
+                pass
+            #if content get, add the title to title list
             t.append(title)
-            content = title
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result != None):
-                # print(result['content'])
-                content = result['content']
-
+            
             newtext = content
             tempdiction = {}
             tempdiction['title'] = title
@@ -398,13 +439,18 @@ def getfenghuangnews(currentDate):
         else:
             print(item.attrs['href'])
         if (len(item.string) > 8) & (t.count(item.string) == 0):
-            content = item.string
-            t.append(item.string)
-            # print('new news')
-            result = APISet.ContentGrab.getContent(item.attrs['href'])
-            if(result != None):
-                content = result['content']
-            
+            title = item.string
+            tempUrl=item.attrs['href']
+            content=getContentWithRetry(tempUrl)
+            # for title only news, keyword will not be analzed at present
+            if(content==None):
+                print("cannot get content of news: "+title)
+                continue
+            else:
+#                 print(content)
+                pass
+            #if content get, add the title to title list
+            t.append(title)
             newtext = content
 
             tempdiction = {}
