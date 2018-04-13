@@ -8,7 +8,7 @@ sys.path.append("..")
 import traceback
 import json
 from QcloudApi.qcloudapi import QcloudApi
-from Util import DataLoader
+from Util import Util
 class TextKeywords(object):
     '''
     classdocs
@@ -33,7 +33,7 @@ class TextKeywords(object):
         action = 'TextKeywords'
         region = "sz"
         result = None
-        path = DataLoader.getDataPath("keys/keys.txt")
+        path = Util.getDataPath("keys/keys.txt")
         with open(path) as f:
             secretId = f.readline().strip('\n')
             secretKey = f.readline().strip('\n')
@@ -77,7 +77,7 @@ class ContentGrab(object):
         module = 'wenzhi'
         action = 'ContentGrab'
         region = "sz"
-        path = DataLoader.getDataPath("keys/keys2.txt")
+        path = Util.getDataPath("keys/keys2.txt")
         with open(path) as f:
             secretId = f.readline().strip('\n')
             secretKey = f.readline().strip('\n')
@@ -124,7 +124,7 @@ class LexicalAnalysis(object):
         module = 'wenzhi'
         action = 'LexicalAnalysis'
         region = "sz"
-        path = DataLoader.getDataPath("keys/keys.txt")
+        path = Util.getDataPath("keys/keys.txt")
         with open(path) as f:
             secretId = f.readline().strip('\n')
             secretKey = f.readline().strip('\n')
@@ -168,7 +168,7 @@ class ContentTranscode(object):
         module = 'wenzhi'
         action = 'ContentTranscode'
         region = "sz"
-        path = DataLoader.getDataPath("keys/keys.txt")
+        path = Util.getDataPath("keys/keys.txt")
         with open(path) as f:
             secretId = f.readline().strip('\n')
             secretKey = f.readline().strip('\n')
