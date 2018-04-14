@@ -597,7 +597,7 @@ def test():
 # this is begining of main function
 if __name__ == '__main__':
     nlp = BosonNLP('4T70m9OU.24533.fXkOVBLkOFVM')
-    second = sleeptime(0, 10, 0)
+    second = sleeptime(0, 60, 0)
     while(1 == 1):
         currentDate = Util.getDateInStr()
         isFolderExist=os.path.exists(Util.getDataPath(currentDate))

@@ -65,7 +65,7 @@ class Cluster(object):
                     assignementList[i][:] = []
         cost = self.computeKMeansCost()
         return centerList, assignementList, cost
-    def getHierResult(self, k=20, limit=0.8):
+    def getHierResult(self, k=20, mergeLimit=0.8):
         l = len(self.newsVectorList)
 #         l=25
         vectorDistanceStrategy="Cos"
@@ -104,7 +104,7 @@ class Cluster(object):
             # merge two closest point
             if(indexI == -1):
                 break
-            if(maxSimilarity<limit):
+            if(maxSimilarity<mergeLimit):
                 break
 #             print("max similarity:"+str(maxSimilarity))
             simiVectorI = similarityMatrix[indexI]
@@ -149,6 +149,15 @@ class Cluster(object):
 #             print(similarityMatrix)
 #             for item in newsMergedList:
 #                 print(item)
+        #only the real cluster(size>1) will be return
+        newsMergedList=list(filter(lambda x:len(x)>1,newsMergedList))
+        #Sort the newsMergedList
+        for i in range(len(newsMergedList)):
+            for j in range(i):
+                if(len(newsMergedList[i])>len(newsMergedList[j])):
+                    temp=newsMergedList[i]
+                    newsMergedList[i]=newsMergedList[j]
+                    newsMergedList[j]=temp
         return newsMergedList
         
     def getKMeansPlusResult(self, k=20):

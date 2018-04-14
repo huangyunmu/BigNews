@@ -5,7 +5,7 @@
 import Worker
 import json
 import numpy as np
-from Util import DataLoader 
+from Util import Util 
 import Cluster
 if __name__ == '__main__':
 #     nameList=["fenghuang321.json","xinhua321.json","sina321.json","sohu321.json","xinhua321.json"]
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     worker=Worker.Worker()
     
     for name in nameList:
-        filename=DataLoader.getDataPath("testData\\44\\"+name)
+        filename=Util.getDataPath("testData\\44\\"+name)
         data=worker.loadData(filename)
         worker.addNews(data)
 #         worker.printAllNews()

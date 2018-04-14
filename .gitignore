@@ -103,3 +103,4 @@ ENV/
 .pydevproject
 #keys
 Data/keys/
+Data/2018*

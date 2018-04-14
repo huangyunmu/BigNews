@@ -20,9 +20,10 @@ def sortKeyword(keywordList, valueList, strategy="ByKeyword"):
                     valueList[i] = valueList[j]
                     valueList[j] = temp
 class news(object):
-    def __init__(self, title, jump, keywords, values):
+    def __init__(self, title, jump, content,keywords, values):
         self.title = title
         self.jump = jump
+        self.content=content
         self.keywordList = keywords
         self.valueList = values
         sortKeyword(self.keywordList, self.valueList, strategy="ByKeyword")
@@ -32,9 +33,16 @@ class news(object):
         result = ""
         result = result + "title:" + self.title + "\n"
         result = result + "jump:" + self.jump + "\n"
+        result = result + "content(first 100):"+self.content[:100]+"\n"
         for i in range(len(self.keywordList)):
             result = result + str(self.keywordList[i]) + " " + str(self.valueList[i]) + ","
         result = result + "\n"
+        return result
+    def toDict(self):
+        result=dict()
+        result["title"]=self.title
+        result["jump"]=self.jump
+        result["content"]=self.content
         return result
 class newsInfo(object):
     def __init__(self, newsId, newsVector):
@@ -72,7 +80,7 @@ class Worker(object):
                     keywordList.append(keyword)
                     valueList.append(value)
                     i = i + 2
-                currentNewsList.append(news(title=item["title"], jump=item["jump"], keywords=keywordList, values=valueList))
+                currentNewsList.append(news(title=item["title"], jump=item["jump"],content=item["content"],keywords=keywordList, values=valueList))
         self.newsList = self.newsList + currentNewsList
         self.updateKeywordDict(currentNewsList)
     def printAllNews(self, filename=None):

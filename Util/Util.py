@@ -6,7 +6,7 @@ import datetime
 import time
 import os
 
-def getDataPath(path):
+def getDataPath(path=""):
     return os.path.abspath('..')+os.sep+"Data"+os.sep+path
 def getDateInStr():
     lastday = datetime.datetime.now().day
