@@ -4,8 +4,6 @@
 @author: andyh
 '''
 import numpy as np
-from sklearn.cluster import KMeans
-
 class Cluster(object):
     '''
     classdocs
@@ -159,18 +157,6 @@ class Cluster(object):
                     newsMergedList[i]=newsMergedList[j]
                     newsMergedList[j]=temp
         return newsMergedList
-        
-    def getKMeansPlusResult(self, k=20):
-        """
-        using sklearn.cluster k-means++
-        """
-        pass
-        estimator = KMeans(n_clusters=k)
-    
-#     @staticmethod
-#     def getCosSimi(vector1, vector2):
-#         similarity = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * (np.linalg.norm(vector2)))
-#         return similarity
     @staticmethod
     def getVectorSimilarity(vector1,vector2,strategy="Cos"):
         #cos similarity
