@@ -82,7 +82,7 @@ def doAnalysis(vectorSize=DEFAULT_VECTOR_SIZE,weightLimit=DEFAULT_WEIGHT_LIMIT,m
 def exportResultToDisk(resultNewsList):
     clusterResultFileName=DEFAULT_CLUSTER_RESULT_FILENAME
     fileType=".json"
-    outputFath=Util.getDataPath()+Util.getDateInStr()+os.sep+clusterResultFileName+fileType
+    outputFath=Util.getDataPath()+Util.getDateInStr()+os.sep+clusterResultFileName+Util.getDateInStr()+fileType
     l=len(resultNewsList)
     with open(outputFath, 'w') as outfile:
         outfile.write('[')
@@ -102,7 +102,7 @@ def exportResultToDisk(resultNewsList):
         outfile.write(']')
     pass
 if __name__ == '__main__':
-    second = sleeptime(0, 0, 10)
+    second = sleeptime(0, 60, 0)
     while(True):
         doAnalysis()
         time.sleep(second)
