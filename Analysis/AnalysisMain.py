@@ -104,6 +104,9 @@ def exportResultToDisk(resultNewsList):
 if __name__ == '__main__':
     second = sleeptime(0, 60, 0)
     while(True):
-        doAnalysis()
+        try:
+            doAnalysis()
+        except:
+            pass
         time.sleep(second)
     pass
