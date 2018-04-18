@@ -603,11 +603,14 @@ if __name__ == '__main__':
         isFolderExist=os.path.exists(Util.getDataPath(currentDate))
         if(isFolderExist==False):
             os.makedirs(Util.getDataPath(currentDate))
-        getsohunews(currentDate)
-        getsinanews(currentDate)
-        getnetnews(currentDate)
-        getxinhuanews(currentDate)
-        getfenghuangnews(currentDate)
+        try:
+            getsohunews(currentDate)
+            getsinanews(currentDate)
+            getnetnews(currentDate)
+            getxinhuanews(currentDate)
+            getfenghuangnews(currentDate)
+        except:
+            pass
         time.sleep(second)
 
 
